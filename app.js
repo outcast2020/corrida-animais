@@ -7,7 +7,7 @@ const animals = [
     emoji: "🐭",
     color: "#d9482b",
     bg: "#ffad7a",
-    story: "O rato pegou carona no boi e saltou na frente.",
+    story: "Pegou carona no Boi · 牛 · niú e saltou na frente.",
     narrator: "1º — Rato: quem percebeu a chance e saltou primeiro?"
   },
   {
@@ -18,8 +18,8 @@ const animals = [
     emoji: "🐂",
     color: "#c28a20",
     bg: "#ffd166",
-    story: "O boi atravessou firme e chegou em segundo.",
-    narrator: "2º — Boi: quem carregou o rato e cruzou com firmeza?"
+    story: "Atravessou firme e chegou em segundo.",
+    narrator: "2º — Boi: quem carregou o Rato · 鼠 · shǔ e cruzou com firmeza?"
   },
   {
     number: 3,
@@ -29,7 +29,7 @@ const animals = [
     emoji: "🐯",
     color: "#ea580c",
     bg: "#ff9f43",
-    story: "O tigre venceu a correnteza com força e rapidez.",
+    story: "Venceu a correnteza com força e rapidez.",
     narrator: "3º — Tigre: quem venceu a correnteza com coragem?"
   },
   {
@@ -40,7 +40,7 @@ const animals = [
     emoji: "🐰",
     color: "#db2777",
     bg: "#f9a8d4",
-    story: "O coelho pulou por pedras e troncos até a margem.",
+    story: "Pulou por pedras e troncos até a margem.",
     narrator: "4º — Coelho: quem pulou por pedras e troncos?"
   },
   {
@@ -51,7 +51,7 @@ const animals = [
     emoji: "🐉",
     color: "#65a30d",
     bg: "#bef264",
-    story: "O dragão parou para ajudar uma aldeia trazendo chuva.",
+    story: "Parou para ajudar uma aldeia trazendo chuva.",
     narrator: "5º — Dragão: quem demorou porque ajudou uma aldeia com chuva?"
   },
   {
@@ -62,8 +62,8 @@ const animals = [
     emoji: "🐍",
     color: "#9333ea",
     bg: "#d8b4fe",
-    story: "A serpente se escondeu e surpreendeu o cavalo.",
-    narrator: "6º — Serpente: quem apareceu de surpresa perto do cavalo?"
+    story: "Escondeu-se e surpreendeu o Cavalo · 马 · mǎ.",
+    narrator: "6º — Serpente: quem apareceu de surpresa perto do Cavalo · 马 · mǎ?"
   },
   {
     number: 7,
@@ -73,7 +73,7 @@ const animals = [
     emoji: "🐴",
     color: "#0284c7",
     bg: "#7dd3fc",
-    story: "O cavalo quase chegou antes, mas levou um susto.",
+    story: "Quase chegou antes, mas levou um susto.",
     narrator: "7º — Cavalo: quem quase chegou antes, mas levou um susto?"
   },
   {
@@ -84,7 +84,7 @@ const animals = [
     emoji: "🐐",
     color: "#0f766e",
     bg: "#5eead4",
-    story: "A cabra trabalhou em equipe para atravessar.",
+    story: "Trabalhou em equipe para atravessar.",
     narrator: "8º — Cabra: quem cooperou para atravessar o rio?"
   },
   {
@@ -95,7 +95,7 @@ const animals = [
     emoji: "🐒",
     color: "#c2410c",
     bg: "#fdba74",
-    story: "O macaco ajudou o grupo a seguir pelo rio.",
+    story: "Ajudou o grupo a seguir pelo rio.",
     narrator: "9º — Macaco: quem ajudou o grupo com agilidade?"
   },
   {
@@ -106,7 +106,7 @@ const animals = [
     emoji: "🐓",
     color: "#ca8a04",
     bg: "#fde68a",
-    story: "O galo cooperou para encontrar o melhor caminho.",
+    story: "Cooperou para encontrar o melhor caminho.",
     narrator: "10º — Galo: quem ajudou a encontrar o caminho?"
   },
   {
@@ -117,7 +117,7 @@ const animals = [
     emoji: "🐕",
     color: "#2563eb",
     bg: "#93c5fd",
-    story: "O cão parou para tomar banho no rio.",
+    story: "Parou para tomar banho no rio.",
     narrator: "11º — Cão: quem parou para tomar banho?"
   },
   {
@@ -128,7 +128,7 @@ const animals = [
     emoji: "🐖",
     color: "#e11d48",
     bg: "#fda4af",
-    story: "O porco parou para comer e dormir antes da chegada.",
+    story: "Parou para comer e dormir antes da chegada.",
     narrator: "12º — Porco: quem parou para comer e dormir?"
   }
 ];
@@ -155,6 +155,9 @@ const river = $("#river");
 const arrivedList = $("#arrived-list");
 const musicToggle = $("#music-toggle");
 
+const animalLabel = (animal) => `${animal.name} · ${animal.hanzi} · ${animal.pinyin}`;
+const animalShortLabel = (animal) => `${animal.name} (${animal.hanzi}, ${animal.pinyin})`;
+
 function init() {
   renderPickButtons();
   renderCards();
@@ -177,9 +180,16 @@ function renderPickButtons() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "pick-number";
-    button.textContent = animal.number;
+    button.dataset.number = animal.number;
+    button.innerHTML = `
+      <span class="pick-number-value">${animal.number}</span>
+      <span class="pick-number-name">${animal.name}</span>
+      <span class="pick-number-animal">${animal.hanzi}</span>
+      <span class="pick-number-pinyin">${animal.pinyin}</span>
+    `;
     button.setAttribute("aria-pressed", "false");
-    button.title = `${animal.number} — ${animal.name}`;
+    button.setAttribute("aria-label", `Cartão ${animal.number}: ${animalLabel(animal)}`);
+    button.title = `${animal.number} — ${animalLabel(animal)}`;
     button.addEventListener("click", () => togglePick(animal.number, button));
     pickGrid.appendChild(button);
   });
@@ -194,7 +204,7 @@ function renderCards() {
     card.dataset.number = animal.number;
     card.style.setProperty("--card-color", animal.color);
     card.style.setProperty("--card-bg", animal.bg);
-    card.setAttribute("aria-label", `Cartão ${animal.number}. Ainda não revelado.`);
+    card.setAttribute("aria-label", `Cartão ${animal.number}: ${animalLabel(animal)}. Ainda não revelado.`);
 
     card.innerHTML = `
       <span class="card-inner">
@@ -259,7 +269,7 @@ function randomPick() {
   clearPick();
   const shuffled = [...animals].sort(() => Math.random() - 0.5).slice(0, 3);
   shuffled.forEach((animal) => {
-    const button = [...document.querySelectorAll(".pick-number")].find((btn) => Number(btn.textContent) === animal.number);
+    const button = document.querySelector(`.pick-number[data-number="${animal.number}"]`);
     togglePick(animal.number, button);
   });
 }
@@ -287,7 +297,13 @@ function startGame(event) {
 
 function selectedLabel() {
   if (!state.selectedCards.length) return "modo livre";
-  const list = state.selectedCards.sort((a, b) => a - b).join(", ");
+  const list = state.selectedCards
+    .sort((a, b) => a - b)
+    .map((number) => {
+      const animal = animals.find((item) => item.number === number);
+      return `${number}: ${animalLabel(animal)}`;
+    })
+    .join("; ");
   return `meus cartões: ${list}`;
 }
 
@@ -318,15 +334,15 @@ function wrongChoice(card, expected) {
   void card.offsetWidth;
   card.classList.add("shake");
   playErrorTone();
-  setMessage(`Ainda não! Agora precisa ser o ${expected.number}º: ${expected.name} (${expected.hanzi}, ${expected.pinyin}).`, "error");
+  setMessage(`Ainda não! Agora precisa ser o ${expected.number}º: ${animalShortLabel(expected)}.`, "error");
 }
 
 function correctChoice(card, animal) {
   card.classList.add("revealed", "arrived", "celebrate");
-  card.setAttribute("aria-label", `Cartão ${animal.number}: ${animal.name}, ${animal.hanzi}, ${animal.pinyin}. Revelado.`);
+  card.setAttribute("aria-label", `Cartão ${animal.number}: ${animalLabel(animal)}. Revelado.`);
   animateAnimal(animal);
   playSuccessTone();
-  setMessage(`Muito bem! ${animal.name} atravessou o rio.`, "ok");
+  setMessage(`Muito bem! ${animalShortLabel(animal)} atravessou o rio.`, "ok");
   window.setTimeout(() => card.classList.remove("celebrate"), 900);
 
   state.currentIndex += 1;
@@ -345,8 +361,8 @@ function correctChoice(card, animal) {
 function updateNarrator() {
   const animal = animals[state.currentIndex];
   if (!animal) return;
-  currentCall.textContent = animal.narrator;
-  currentHint.textContent = `${animal.hanzi} · ${animal.pinyin} · ${animal.story}`;
+  currentCall.textContent = animal.narrator.replace(`${animal.number}º — ${animal.name}`, `${animal.number}º — ${animalLabel(animal)}`);
+  currentHint.textContent = `${animalLabel(animal)} · ${animal.story}`;
 }
 
 function updateProgress() {
@@ -377,8 +393,15 @@ function addArrivedToken(animal) {
   token.className = "arrived-token";
   token.style.setProperty("--token-color", animal.color);
   token.style.setProperty("--token-bg", animal.bg);
-  token.textContent = animal.emoji;
-  token.title = `${animal.number}º ${animal.name}`;
+  token.innerHTML = `
+    <span class="arrived-token-emoji">${animal.emoji}</span>
+    <span class="arrived-token-text">
+      <span>${animal.hanzi}</span>
+      <span>${animal.pinyin}</span>
+    </span>
+  `;
+  token.setAttribute("aria-label", `${animal.number}º ${animalLabel(animal)}`);
+  token.title = `${animal.number}º ${animalLabel(animal)}`;
   arrivedList.appendChild(token);
   celebrateArrival(animal);
 }
@@ -402,7 +425,14 @@ function finishGame() {
   animals.forEach((animal) => {
     const chip = document.createElement("span");
     chip.className = "final-chip";
-    chip.innerHTML = `<span>${animal.number}º</span><span>${animal.emoji}</span><span>${animal.name}</span>`;
+    chip.innerHTML = `
+      <span>${animal.number}º</span>
+      <span>${animal.emoji}</span>
+      <span class="final-chip-text">
+        <span>${animal.name}</span>
+        <span>${animal.hanzi} · ${animal.pinyin}</span>
+      </span>
+    `;
     finalAnimals.appendChild(chip);
   });
 
@@ -428,7 +458,8 @@ function resetToLanding() {
   cardsGrid.querySelectorAll(".card").forEach((card) => {
     card.classList.remove("revealed", "arrived", "shake", "celebrate");
     const number = Number(card.dataset.number);
-    card.setAttribute("aria-label", `Cartão ${number}. Ainda não revelado.`);
+    const animal = animals.find((item) => item.number === number);
+    card.setAttribute("aria-label", `Cartão ${number}: ${animalLabel(animal)}. Ainda não revelado.`);
   });
   updateNarrator();
   showScreen(landing);

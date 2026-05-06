@@ -110,6 +110,11 @@ button {
   font-size: 0.78rem;
 }
 
+.player-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 h1,
 h2 {
   margin: 0;
@@ -173,6 +178,26 @@ h2 {
 
 .hero-animal {
   font-size: clamp(2.8rem, 8vw, 6.5rem);
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.hero-emoji {
+  line-height: 1;
+}
+
+.hero-animal-label {
+  max-width: 132px;
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: rgba(255, 249, 233, 0.86);
+  color: var(--deep-red);
+  box-shadow: 0 5px 14px rgba(71, 28, 12, 0.16);
+  font-size: clamp(0.68rem, 1.6vw, 0.95rem);
+  font-weight: 950;
+  line-height: 1.15;
+  text-align: center;
 }
 
 .rat { left: 8%; bottom: 40%; }
@@ -232,18 +257,38 @@ input[type="text"]:focus {
 }
 
 .pick-number {
-  min-height: 44px;
+  display: grid;
+  place-items: center;
+  gap: 1px;
+  min-height: 82px;
   border: 2px solid rgba(127, 23, 17, 0.18);
   border-radius: 14px;
   background: var(--paper);
   color: var(--deep-red);
   font-weight: 950;
+  line-height: 1;
 }
 
 .pick-number.selected {
   background: var(--jade);
   border-color: var(--jade-dark);
   color: #fff;
+}
+
+.pick-number-value {
+  font-size: 1.18rem;
+}
+
+.pick-number-name {
+  font-size: 0.76rem;
+}
+
+.pick-number-animal {
+  font-size: 1.1rem;
+}
+
+.pick-number-pinyin {
+  font-size: 0.68rem;
 }
 
 .pick-actions,
@@ -528,24 +573,51 @@ input[type="text"]:focus {
   flex-wrap: wrap;
   justify-content: center;
   gap: 4px;
-  max-width: 128px;
+  max-width: 148px;
   margin: 8px auto 0;
 }
 
 .arrived-token {
   position: relative;
-  display: inline-grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 47px;
+  min-height: 30px;
+  padding: 2px 5px;
+  border-radius: 999px;
   background:
     radial-gradient(circle at 35% 26%, rgba(255,255,255,0.95) 0 20%, transparent 22%),
     var(--token-bg, rgba(255, 255, 255, 0.68));
   border: 2px solid var(--token-color, rgba(255, 255, 255, 0.68));
   box-shadow: 0 5px 10px rgba(94, 52, 18, 0.18);
-  font-size: 1rem;
   animation: tokenPop .42s cubic-bezier(.2,1.6,.4,1);
+}
+
+.arrived-token span {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.arrived-token-emoji {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.arrived-token-text {
+  display: grid;
+  line-height: 0.95;
+  text-align: left;
+}
+
+.arrived-token-text span:first-child {
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
+.arrived-token-text span:last-child {
+  font-size: 0.55rem;
+  font-weight: 850;
 }
 
 .arrived-token::after {
@@ -964,13 +1036,25 @@ input[type="text"]:focus {
 .final-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  border-radius: 999px;
+  gap: 8px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.75);
   padding: 8px 12px;
   font-weight: 900;
   color: var(--deep-red);
   border: 1px solid rgba(127, 23, 17, 0.12);
+}
+
+.final-chip-text {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  line-height: 1.08;
+}
+
+.final-chip-text span:last-child {
+  color: var(--jade-dark);
+  font-size: 0.82rem;
 }
 
 @keyframes swing {
