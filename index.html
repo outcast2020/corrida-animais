@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#b92a1d" />
+  <title>Corrida do Zodíaco Chinês</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <noscript>Este jogo precisa de JavaScript ativado para funcionar.</noscript>
+
+  <main class="app-shell">
+    <section id="landing" class="screen landing-screen active" aria-labelledby="landing-title">
+      <div class="hero-card">
+        <div class="lantern" aria-hidden="true">🏮</div>
+        <p class="eyebrow">Laboratório de Cultura Chinesa</p>
+        <h1 id="landing-title">Corrida do Zodíaco Chinês</h1>
+        <p class="subtitle">Atravesse o rio na ordem da lenda até a festa do Imperador de Jade.</p>
+
+        <div class="river-hero" aria-hidden="true">
+          <span class="hero-animal rat">🐭</span>
+          <span class="hero-animal ox">🐂</span>
+          <span class="hero-animal rabbit">🐰</span>
+          <span class="palace">🏯</span>
+        </div>
+
+        <form id="start-form" class="start-form">
+          <label for="player-name">Nome do participante</label>
+          <input id="player-name" name="player-name" type="text" maxlength="28" placeholder="Digite seu nome" autocomplete="name" required />
+
+          <fieldset class="pick-panel">
+            <legend>Escolha até 3 cartões para representar você</legend>
+            <p class="microcopy">Opcional: marque os números que você ficará responsável por virar quando o narrador chamar.</p>
+            <div id="pick-grid" class="pick-grid" aria-label="Escolha até três números"></div>
+            <div class="pick-actions">
+              <button type="button" id="random-pick" class="ghost-button">Sortear 3</button>
+              <button type="button" id="clear-pick" class="ghost-button">Limpar</button>
+            </div>
+          </fieldset>
+
+          <button class="primary-button" type="submit">Começar</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="game" class="screen game-screen" aria-labelledby="game-title">
+      <header class="game-header">
+        <div>
+          <p id="player-label" class="player-label">Participante</p>
+          <h2 id="game-title">Atravesse o rio na ordem certa</h2>
+        </div>
+        <div class="header-actions">
+          <button id="music-toggle" class="icon-button" type="button" aria-pressed="false" title="Ligar ou desligar música">♪ Música</button>
+          <button id="reset-game" class="icon-button" type="button">Reiniciar</button>
+        </div>
+      </header>
+
+      <section class="story-board" aria-live="polite">
+        <div class="narrator-card">
+          <p class="narrator-label">Agora o narrador chama:</p>
+          <p id="current-call" class="current-call"></p>
+          <p id="current-hint" class="current-hint"></p>
+        </div>
+        <div class="progress-wrap" aria-label="Progresso da corrida">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+      </section>
+
+      <section class="river-stage" aria-label="Rio da corrida">
+        <div class="bank bank-left">
+          <span>Margem</span>
+          <strong>Partida</strong>
+        </div>
+        <div id="river" class="river" aria-hidden="true">
+          <div class="wave wave-one"></div>
+          <div class="wave wave-two"></div>
+          <div class="stone stone-a"></div>
+          <div class="stone stone-b"></div>
+          <div class="stone stone-c"></div>
+        </div>
+        <div class="bank bank-right">
+          <span>Chegada</span>
+          <strong>🏯 Jade</strong>
+          <div id="arrived-list" class="arrived-list" aria-label="Animais que chegaram"></div>
+        </div>
+      </section>
+
+      <div id="message" class="message" role="status" aria-live="polite"></div>
+
+      <section id="cards-grid" class="cards-grid" aria-label="Cartões do zodíaco chinês"></section>
+    </section>
+
+    <section id="final" class="screen final-screen" aria-labelledby="final-title">
+      <div class="final-card">
+        <div class="fireworks" aria-hidden="true">🎉 🏮 🎊</div>
+        <h2 id="final-title">A festa começou!</h2>
+        <p id="final-message"></p>
+        <p class="final-note">Todos os 12 animais chegaram ao Imperador de Jade na ordem do zodíaco chinês.</p>
+        <div id="final-animals" class="final-animals" aria-label="Ordem final dos animais"></div>
+        <button id="play-again" class="primary-button" type="button">Jogar novamente</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
